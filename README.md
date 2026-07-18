@@ -14,9 +14,6 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-You do **not** need to run `playwright install chromium`. The recommended
-workflow uses your existing Google Chrome installation.
-
 ## Recommended: sign in before the script connects
 
 First, completely quit Google Chrome (`Chrome > Quit Google Chrome`). Then run
@@ -49,17 +46,9 @@ Terminal and press Enter when prompted. It then presents this menu:
 3. Statements for the selected year for the selected account
 ```
 
-Press Enter at the menu to choose option 1. Accounts and time periods are
-discovered independently from Wells Fargo at runtime. The script does not
-assume an account count, account type, account name, first year, last year, or
-current calendar year. It supports scrollable account and year lists, so it can
-adapt as accounts are added or removed and as Wells Fargo's rolling history
-moves forward. Numeric years are processed oldest-first. `Recent statements`
-is intentionally skipped in the two all-years modes because those PDFs overlap
-the explicit year views.
-PDFs are filed by actual statement dates. Dynamic account/year dropdowns are sampled repeatedly
-after account changes. Each failed statement is tried up to three times, with
-a three-second pause between attempts, and anything still absent is reported
+Accounts and time periods are discovered independently from Wells Fargo at runtime.
+PDFs are stored by actual statement dates. Each failed download is tried up to three 
+times, with a three-second pause between attempts, and anything still absent is reported
 as `MISSING`. Files are placed under:
 
 ```text
@@ -68,19 +57,6 @@ Wells_Fargo_Statements/
     YYYY/
       YYYY-MM-DD_Statement.pdf
 ```
-
-Existing nonempty PDFs are skipped. Add `--overwrite` to replace them.
-
-Wells Fargo currently renders statement links as JavaScript-driven controls.
-The downloader clicks each control and captures the resulting browser download,
-PDF network response, or newly opened PDF tab. If a statement replaces the
-current page with Chrome's PDF viewer, the script returns to the Statements
-page, explicitly restores the selected account and year if Wells Fargo resets
-the selector to `Recent statements`, and waits for the statement links before
-clicking the next statement. It verifies both dropdown controls after every
-PDF and can reopen the saved Statements URL if browser history does not restore
-the page reliably. Scrollable dropdowns are reset to the top and traversed to
-the bottom so older off-screen years are included.
 
 ## Useful options
 
@@ -93,9 +69,6 @@ python download_wells_fargo_statements.py --delay 2.5
 
 # Keep the local browser profile in a different location
 python download_wells_fargo_statements.py --profile ~/.wf-statement-browser
-
-# Use Playwright's bundled Chromium instead of installed Google Chrome
-python download_wells_fargo_statements.py --browser chromium
 ```
 
 The browser profile contains Wells Fargo session data. Keep it private. Delete
