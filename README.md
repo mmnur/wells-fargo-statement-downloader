@@ -1,4 +1,4 @@
-# Wells Fargo statement downloader
+# Wells Fargo Bulk Statement Downloader
 
 This local Python tool downloads the PDF statements available on Wells Fargo's
 **Statements and Documents** page. It does not ask for or store your username,
