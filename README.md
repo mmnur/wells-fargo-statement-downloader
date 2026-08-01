@@ -4,7 +4,7 @@ This local Python tool downloads the PDF statements available on Wells Fargo's
 **Statements and Documents** page. It does not ask for or store your username,
 password, or MFA code. You sign in manually before the script connects.
 
-## Install on macOS
+## Install
 
 Open Terminal in this folder and run:
 
